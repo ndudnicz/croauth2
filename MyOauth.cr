@@ -55,10 +55,10 @@ class MyOauth
 end
 
 
-CLIENT_ID = ENV["CLIENT_ID"]
-CLIENT_SECRET = ENV["CLIENT_SECRET"]
-
-o = MyOauth.new "https://api.intra.42.fr", CLIENT_ID, CLIENT_SECRET
-o.get_token_from_credentials()
-res = o.get("/v2/users", params: {"page" => { "number" => "2" } })
-puts res.body
+# CLIENT_ID = ENV["CLIENT_ID"]
+# CLIENT_SECRET = ENV["CLIENT_SECRET"]
+#
+# o = MyOauth.new "https://api.intra.42.fr", CLIENT_ID, CLIENT_SECRET
+# o.get_token_from_credentials()
+# res = o.get("/v2/users", params: {"page" => { "number" => "2" } })
+# puts res.body
