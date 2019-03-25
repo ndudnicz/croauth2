@@ -22,7 +22,7 @@ puts res.body
 ```crystal
 .new(endpoint: String, client_id: String, client_secret: String)
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create a new oauth client
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create a new Myoauth client
 
 #### Instance Methods Summary
 
