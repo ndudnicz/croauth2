@@ -5,7 +5,7 @@ An oauth2 module in crystal
 
 ### Example
 ```ruby
-require "./Myoauth"
+require "./Myoauth2"
 
 CLIENT_ID = ENV["CLIENT_ID"]
 CLIENT_SECRET = ENV["CLIENT_SECRET"]
@@ -21,7 +21,7 @@ puts res.body
 ```crystal
 .new(endpoint: String, client_id: String, client_secret: String)
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create a new Myoauth client
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create a new Myoauth2 client
 
 #### Instance Methods Summary
 
