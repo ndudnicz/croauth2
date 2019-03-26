@@ -4,13 +4,12 @@ require "json"
 class Myoauth
   struct Token
     include JSON::Serializable
-    getter access_token : String = String.new
-    getter expires_in : Int64 = 0
-    getter created_at : Int64 = 0
+    @access_token : String = String.new
+    @expires_in : Int64 = 0
+    @created_at : Int64 = 0
   end
 
-  @token = Token.from_json(%({}))
-  @auth_header = String.new
+  @_token = Token.from_json(%({}))
   @_http_client = HTTP::Client.new("")
 
   def initialize(
@@ -44,10 +43,10 @@ class Myoauth
       puts "Invalid end point : " + @endpoint + " ?"
       raise "Error: " + ex.message.to_s
     end
-    @token = Token.from_json(res.body)
+    @_token = Token.from_json(res.body)
 
     @_http_client.before_request do |request|
-      request.headers["Authorization"] = "Bearer " + @token.@access_token
+      request.headers["Authorization"] = "Bearer " + @_token.@access_token
     end
   end
 
@@ -59,5 +58,9 @@ class Myoauth
     @_http_client.get(
       path
     )
+  end
+
+  def token
+    @_token
   end
 end
