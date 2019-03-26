@@ -1,7 +1,7 @@
 require "http/client"
 require "json"
 
-class Myoauth
+class Myoauth2
   struct Token
     include JSON::Serializable
     @access_token : String = String.new
