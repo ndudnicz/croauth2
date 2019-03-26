@@ -1,16 +1,21 @@
 require "http/client"
 require "json"
+require "crystal/system/time"
+
+# epoch's timestamp in seconds since `0001-01-01 00:00:00`
+EPOCH_SECONDS_TIMESTAMP = 62135596800_i64
 
 class Myoauth2
   struct Token
     include JSON::Serializable
     @access_token : String = String.new
-    @expires_in : Int64 = 0
-    @created_at : Int64 = 0
+    @expires_in : Int32 = 0
+    @created_at : Int32 = 0
   end
 
-  @_token = Token.from_json(%({}))
-  @_http_client = HTTP::Client.new("")
+  @_token : Token = Token.from_json(%({}))
+  @_http_client : HTTP::Client = HTTP::Client.new("")
+  @_token_expires_at : Int64 = 0
 
   def initialize(
     endpoint : String,
@@ -44,6 +49,8 @@ class Myoauth2
       raise "Error: " + ex.message.to_s
     end
     @_token = Token.from_json(res.body)
+    seconds, nanoseconds = Crystal::System::Time.compute_utc_seconds_and_nanoseconds
+    @_token_expires_at = seconds - EPOCH_SECONDS_TIMESTAMP + @_token.@expires_in
 
     @_http_client.before_request do |request|
       request.headers["Authorization"] = "Bearer " + @_token.@access_token
@@ -60,7 +67,11 @@ class Myoauth2
     )
   end
 
-  def token
+  def token : Token
     @_token
+  end
+
+  def token_expires_at : Int64
+    @_token_expires_at
   end
 end
