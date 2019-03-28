@@ -1,6 +1,6 @@
 An oauth2 module in crystal
 
-### Requierment:
+### Requirement:
 * crystal >= 0.27.2
 
 ### Example
