@@ -25,12 +25,11 @@ class Croauth2
     client_secret : String
   )
     uri = URI.parse endpoint
-    match = endpoint.match(/^(?<ht>https?):\/\/(?<uri>[^:]+)(:(?<port>[0-9]+))?$/).not_nil!
     @_client_id = client_id
     @_client_secret = client_secret
     @_http_client = HTTP::Client.new(
-      host: uri.host,
-      port: uri.port ? uri.port : nil,
+      host: uri.host.as(String),
+      port: uri.port ? uri.port.as(Int32) : nil,
       tls: uri.scheme == "https" ? true : false
     ).not_nil!
     @endpoint = endpoint
