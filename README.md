@@ -1,6 +1,6 @@
 An oauth2 module in crystal
 
-### Requirement:
+### Requirement :
 * crystal >= 0.27.2
 
 ### Installation :
@@ -11,7 +11,7 @@ dependencies:
     github: ndudnicz/croauth2
 ```
 
-### Example
+### Example :
 ```ruby
 require "croauth2"
 
@@ -24,14 +24,14 @@ res = o.get("/v2/users", params: {"page" => { "number" => "2" } })
 puts res.body
 ```
 
-### API
-#### Constructor
+### API :
+#### Constructor :
 ```ruby
 .new(endpoint: String, client_id: String, client_secret: String)
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create a new Myoauth2 client
 
-#### Instance Methods Summary
+#### Instance Methods Summary :
 
 ```ruby
 .get(path: String, params : Hash(String, String) = nil) :
@@ -39,7 +39,7 @@ HTTP::Client::Response
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Executes a GET request with the params passed as url encoded parameters (WIP). Returns [HTTP::Client::Response](https://crystal-lang.org/api/0.27.2/HTTP/Client/Response.html)
 
-#### Getters
+#### Getters :
 ```ruby
 .token :
 Myoauth2::Token
