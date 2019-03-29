@@ -4,9 +4,6 @@ require "uri"
 
 require "crtimestamp"
 
-# epoch's timestamp in seconds since `0001-01-01 00:00:00`
-EPOCH_SECONDS_TIMESTAMP = 62135596800_i64
-
 class Croauth2
   struct Token
     include JSON::Serializable
