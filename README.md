@@ -3,14 +3,22 @@ An oauth2 module in crystal
 ### Requirement:
 * crystal >= 0.27.2
 
+### Installation :
+Add this to your application's `shard.yml`:
+```yaml
+dependencies:
+  croauth2:
+    github: ndudnicz/croauth2
+```
+
 ### Example
 ```ruby
-require "./Myoauth2"
+require "croauth2"
 
 CLIENT_ID = ENV["CLIENT_ID"]
 CLIENT_SECRET = ENV["CLIENT_SECRET"]
 
-o = Myoauth2.new "https://api.intra.42.fr", CLIENT_ID, CLIENT_SECRET
+o = Croauth2.new "https://api.intra.42.fr", CLIENT_ID, CLIENT_SECRET
 o.get_token_from_credentials()
 res = o.get("/v2/users", params: {"page" => { "number" => "2" } })
 puts res.body
