@@ -1,0 +1,16 @@
+name: croauth2
+version: 0.1.0
+
+crystal: 0.27.2
+
+authors:
+  - Nicolas Dudniczenko <ndudnicz@protonmail.com>
+
+description: |
+  Oauth2 abstraction
+
+license: MIT
+
+dependencies:
+  crtimestamp:
+    github: ndudnicz/crtimestamp

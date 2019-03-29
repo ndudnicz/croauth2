@@ -1,6 +1,8 @@
 require "http/client"
 require "json"
-require "crystal/system/time"
+require "uri"
+
+require "crtimestamp"
 
 # epoch's timestamp in seconds since `0001-01-01 00:00:00`
 EPOCH_SECONDS_TIMESTAMP = 62135596800_i64
@@ -22,13 +24,14 @@ class Myoauth2
     client_id : String,
     client_secret : String
   )
+    uri = URI.parse endpoint
     match = endpoint.match(/^(?<ht>https?):\/\/(?<uri>[^:]+)(:(?<port>[0-9]+))?$/).not_nil!
     @_client_id = client_id
     @_client_secret = client_secret
     @_http_client = HTTP::Client.new(
-      host: match.named_captures["uri"].to_s,
-      port: match.named_captures["port"] ? match.named_captures["port"].to_s : nil,
-      tls: match.named_captures["ht"].to_s == "https" ? true : false
+      host: uri.host,
+      port: uri.port ? uri.port : nil,
+      tls: uri.scheme == "https" ? true : false
     ).not_nil!
     @endpoint = endpoint
   end
@@ -49,8 +52,7 @@ class Myoauth2
       raise "Error: " + ex.message.to_s
     end
     @_token = Token.from_json(res.body)
-    seconds, nanoseconds = Crystal::System::Time.compute_utc_seconds_and_nanoseconds
-    @_token_expires_at = seconds - EPOCH_SECONDS_TIMESTAMP + @_token.@expires_in
+    @_token_expires_at = Crtimestamp.now_utc_to_unix - EPOCH_SECONDS_TIMESTAMP + @_token.@expires_in
 
     @_http_client.before_request do |request|
       request.headers["Authorization"] = "Bearer " + @_token.@access_token
