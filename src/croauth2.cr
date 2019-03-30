@@ -32,7 +32,7 @@ class Croauth2
     @endpoint = endpoint
   end
 
-  def get_token_from_credentials
+  def get_token_from_credentials : Token
     params = HTTP::Params.encode({
       "grant_type" => "client_credentials",
       "client_id" => @_client_id,
@@ -48,18 +48,19 @@ class Croauth2
       raise "Error: " + ex.message.to_s
     end
     @_token = Token.from_json(res.body)
-    @_token_expires_at = Crtimestamp.now_utc_to_unix - EPOCH_SECONDS_TIMESTAMP + @_token.@expires_in
+    @_token_expires_at = Crtimestamp.now_utc_to_unix + @_token.@expires_in
 
     @_http_client.before_request do |request|
       request.headers["Authorization"] = "Bearer " + @_token.@access_token
     end
+    token
   end
 
-  # TODO: handle params, improve returned value
+  # TODO: handle params
   def get(
     path : String,
     params  = nil
-  )
+  ) : HTTP::Client::Response
     @_http_client.get(
       path
     )
