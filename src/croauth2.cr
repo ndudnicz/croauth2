@@ -12,9 +12,9 @@ class Croauth2
     @created_at : Int32 = 0
   end
 
-  @_token : Token = Token.from_json(%({}))
-  @_http_client : HTTP::Client = HTTP::Client.new("")
-  @_token_expires_at : Int64 = 0
+  @_token : Token
+  @_http_client : HTTP::Client
+  @_token_expires_at : Int64
 
   def initialize(
     endpoint : String,
@@ -30,6 +30,8 @@ class Croauth2
       tls: uri.scheme == "https" ? true : false
     ).not_nil!
     @endpoint = endpoint
+    @_token = nil
+    @_token_expires_at = 0
   end
 
   def get_token_from_credentials : Token
