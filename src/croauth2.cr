@@ -30,7 +30,7 @@ class Croauth2
       tls: uri.scheme == "https" ? true : false
     ).not_nil!
     @endpoint = endpoint
-    @_token = nil
+    @_token = Croauth2::Token.new JSON::PullParser.new "{}"
     @_token_expires_at = 0
   end
 
